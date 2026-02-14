@@ -3,6 +3,7 @@ package com.ecommerce.auth_service.entities;
 import com.ecommerce.auth_service.enums.Provider;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jspecify.annotations.Nullable;
@@ -16,6 +17,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "users")
 @Table(name = "users")
 public class User implements UserDetails {
@@ -24,8 +26,11 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private UUID id;
 
-    @Column(name = "user_name" , nullable = false , length = 300)
-    private String name;
+    @Column(name = "firstName" , nullable = false , length = 100)
+    private String firstName;
+
+    @Column(name = "lastName" , nullable = false , length = 100)
+    private String lastName;
 
     @Column(name = "email" , nullable = false , unique = true , length = 300)
     private String email;

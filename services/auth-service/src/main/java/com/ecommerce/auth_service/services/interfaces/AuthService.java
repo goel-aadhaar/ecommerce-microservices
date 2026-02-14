@@ -1,17 +1,15 @@
 package com.ecommerce.auth_service.services.interfaces;
 
-import com.ecommerce.auth_service.dtos.LoginRequest;
-import com.ecommerce.auth_service.dtos.TokenResponse;
-import com.ecommerce.auth_service.dtos.UserDto;
+import com.ecommerce.auth_service.dtos.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface AuthService {
 
-    TokenResponse login(LoginRequest loginRequest , HttpServletResponse);
+    TokenResponse login(LoginRequest loginRequest , HttpServletResponse response);
 
-    void logout(HttpServletRequest request , HttpServletResponse);
+    void logout(HttpServletResponse response);
 
-    UserDto register(UserDto userDto);
+    UserResponse register(UserRegistrationRequest userRegistrationRequest);
 
 }

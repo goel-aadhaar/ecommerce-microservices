@@ -1,15 +1,11 @@
 package com.ecommerce.auth_service.controllers;
 
-import com.ecommerce.auth_service.dtos.LoginRequest;
-import com.ecommerce.auth_service.dtos.TokenResponse;
+import com.ecommerce.auth_service.dtos.*;
 import com.ecommerce.auth_service.services.interfaces.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -28,8 +24,22 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpServletResponse response) {
+    public ResponseEntity<Void> logout(
+            @CookieValue(name = "refreshToken", required = false) String refreshToken,
+            HttpServletResponse response
+    ) {
+
         authService.logout(response);
+
+//        response.set
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserResponse> register(
+            @RequestBody UserRegistrationRequest userRegistrationRequest
+    ) {
+        UserResponse createdUser = authService.register(userRegistrationRequest);
+        return ResponseEntity.ok(createdUser);
     }
 }
