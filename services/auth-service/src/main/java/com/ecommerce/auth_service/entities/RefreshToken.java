@@ -1,11 +1,13 @@
 package com.ecommerce.auth_service.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.time.Instant;
+
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "refresh_tokens")
@@ -26,13 +28,21 @@ public class RefreshToken {
     private User user;
 
     @Column(updatable = false , nullable = false)
-    private String createdAt;
+    private Instant createdAt;
 
     @Column(nullable = false)
-    private String expiresAt;
+    private Instant expiresAt;
 
     @Column(nullable = false)
     private boolean revoked;
 
     private String replacedByToken;
+
+    public boolean isActive() {
+        return !revoked && expiresAt.isAfter(Instant.now());
+    }
+
+    public boolean isExpired() {
+        return expiresAt.isBefore(Instant.now());
+    }
 }
