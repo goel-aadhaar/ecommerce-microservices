@@ -8,7 +8,7 @@ public interface AuthService {
 
     TokenResponse login(LoginRequest loginRequest , HttpServletResponse response);
 
-    void logout(HttpServletResponse response);
+    void logout(HttpServletRequest request , HttpServletResponse response);
 
     UserResponse register(UserRegistrationRequest userRegistrationRequest);
 

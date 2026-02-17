@@ -1,10 +1,16 @@
 package com.ecommerce.auth_service.security;
 
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Service;
 
+@Service
+@Getter
+@Setter
 public class CookieService {
 
     private final String refreshTokenCookieName;

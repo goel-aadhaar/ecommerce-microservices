@@ -2,12 +2,10 @@ package com.ecommerce.auth_service.controllers;
 
 import com.ecommerce.auth_service.dtos.*;
 import com.ecommerce.auth_service.services.interfaces.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,12 +27,12 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(
             @CookieValue(name = "refreshToken", required = false) String refreshToken,
+            HttpServletRequest request,
             HttpServletResponse response
     ) {
 
-        authService.logout(response);
+        authService.logout(request , response);
 
-//        response.set
         return ResponseEntity.noContent().build();
     }
 
